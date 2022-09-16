@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import "./App.css";
-import Input from "./components/Input";
-import Response from "./components/Response";
+import Input from "./Input";
+import Response from "./Response";
 
 const App = () => {
   const url = "http://localhost:8080/api/user";
