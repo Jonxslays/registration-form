@@ -2,8 +2,11 @@ import { useState } from "react";
 
 import "./App.css";
 import Input from "./components/Input";
+import Response from "./components/Response";
 
 const App = () => {
+  const url = "http://localhost:8080/api/user";
+  const [response, setResponse] = useState(false);
   const [state, setState] = useState({
     username: "",
     email: "",
@@ -52,8 +55,28 @@ const App = () => {
     },
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const resp = await fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: "application/josn",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: btoa(state.username),
+        email: btoa(state.email),
+        password: btoa(state.password),
+      }),
+    });
+
+    if (resp.ok) {
+      const data = await resp.json();
+      setResponse({ ...data });
+    } else {
+      setResponse({ error: await resp.text() });
+    }
   };
 
   const handleChange = (e) => {
@@ -62,19 +85,23 @@ const App = () => {
 
   return (
     <div className="app">
-      <form onSubmit={handleSubmit}>
-        <h1>Register</h1>
+      {response ? (
+        <Response response={response} />
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <h1>Register</h1>
 
-        {inputs.map((input) => (
-          <Input
-            {...input}
-            key={input.id}
-            value={state[input.name]}
-            handleChange={handleChange}
-          />
-        ))}
-        <button>Submit Registration</button>
-      </form>
+          {inputs.map((input) => (
+            <Input
+              {...input}
+              key={input.id}
+              value={state[input.name]}
+              handleChange={handleChange}
+            />
+          ))}
+          <button>Submit Registration</button>
+        </form>
+      )}
     </div>
   );
 };
