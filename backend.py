@@ -2,8 +2,6 @@
 Backend for testing the API response.
 """
 
-import base64
-
 import fastapi
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,7 +23,7 @@ async def index(req: fastapi.Request) -> dict[str, str]:
     data = await req.json()
     return {
         "id": "abc123",
-        "username": base64.b64decode(data["username"]).decode(),
+        "username":data["username"],
     }
 
 

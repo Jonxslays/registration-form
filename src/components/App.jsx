@@ -61,13 +61,13 @@ const App = () => {
     const resp = await fetch(url, {
       method: "POST",
       headers: {
-        Accept: "application/josn",
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: btoa(state.username),
-        email: btoa(state.email),
-        password: btoa(state.password),
+        username: state.username,
+        email: state.email,
+        password: state.password,
       }),
     });
 
