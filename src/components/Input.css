@@ -1,4 +1,39 @@
 input {
   padding: 15px;
   margin: 10px 0px;
+  border-radius: 5px;
+  border: 2px solid rgb(39, 39, 39);
+}
+
+input:focus {
+  border: 2px solid rgb(81, 223, 81);
+}
+
+input:invalid[validate="true"] {
+  border: 2px solid red;
+}
+
+input:invalid[validate="true"] ~ span {
+  display: block;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 500;
+  color: lightgray;
+  margin-top: 5px;
+}
+
+span {
+  font-size: 12px;
+  padding: 3px;
+  color: rgb(255, 23, 23);
+  display: none;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  font-display: column;
+  width: 280px;
 }
